@@ -127,3 +127,43 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# MQL5 Terminal
+**/*.ex5
+/Experts/Advisors
+/Experts/Examples
+/Images/dollar.bmp
+/Images/euro.bmp
+/Include/Arrays
+/Include/Canvas
+/Include/ChartObjects
+/Include/Charts
+/Include/Controls
+/Include/Expert
+/Include/Files
+/Include/Generic
+/Include/Graphics
+/Include/Indicators
+/Include/Math
+/Include/OpenCL
+/Include/Strings
+/Include/Tools
+/Include/Trade
+/Include/WinAPI
+/Indicators/Examples
+/Logs
+/Profiles/Charts
+/Profiles/SymbolSets/forex.all.set
+/Profiles/SymbolSets/forex.crosses.set
+/Profiles/SymbolSets/forex.major.set
+/Profiles/SymbolSets/IBOV.set
+/Profiles/SymbolSets/IBRX100.set
+/Profiles/Tester
+/Profiles/Templates/default.tpl
+/Profiles/Templates/ADX.tpl
+/Profiles/Templates/BollingerBands.tpl
+/Profiles/Templates/Momentum.tpl
+/Profiles/Tester
+/Scripts/Examples
+/Scripts/UnitTests
+/experts.dat
