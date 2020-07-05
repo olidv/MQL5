@@ -60,6 +60,20 @@ datetime GetDate() {
 }
 
 //+------------------------------------------------------------------+
+//| Retorna a data atual, sem a parte de horas (hor,min,seg).        |
+//+------------------------------------------------------------------+
+datetime GetHoje() {
+   MqlDateTime dt_struct = {0};
+
+   TimeLocal(dt_struct);
+   dt_struct.hour = 0;
+   dt_struct.min = 0;
+   dt_struct.sec = 0;
+
+   return StructToTime(dt_struct);
+}
+
+//+------------------------------------------------------------------+
 //| Converte uma estrutura SYSTEMTIME para o tipo interno datetime.  |
 //+------------------------------------------------------------------+
 datetime GetDatetime(SYSTEMTIME &systemTime) {
