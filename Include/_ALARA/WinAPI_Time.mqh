@@ -3,6 +3,7 @@
 //|                              Copyright 2020, ALARA Investimentos |
 //|                                          http://www.alara.com.br |
 //+------------------------------------------------------------------+
+#property library
 //#property copyright "Copyright 2020, ALARA Investimentos"
 //#property link      "http://www.alara.com.br"
 //#property version   "1.00"
