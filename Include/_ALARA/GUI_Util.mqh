@@ -1,12 +1,19 @@
-//+------------------------------------------------------------------+
-//|                                                     GUI_Util.mqh |
-//|                              Copyright 2020, ALARA Investimentos |
-//|                                          http://www.alara.com.br |
-//+------------------------------------------------------------------+
+/*
+===============================================================================
+
+ package: MQL5\Include\_ALARA
+
+ module : GUI_Util.mqh
+ 
+===============================================================================
+*/
+#property copyright   "Copyright 2021, ALARA Investimentos"
+#property link        "http://www.alara.com.br"
+#property version     "1.00"
+#property description ""
+#property description ""
+
 #property library
-//#property copyright "Copyright 2020, ALARA Investimentos"
-//#property link      "http://www.alara.com.br"
-//#property version   "1.00"
 
 //+------------------------------------------------------------------+
 //| defines                                                          |
