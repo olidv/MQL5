@@ -22,6 +22,9 @@ void OnStart() {
    
    Print("day_of_week = ",STime.day_of_week);
    Print("day_of_week = ",WEDNESDAY);
+   
+   ulong seconds = TimeLocal();
+   Print("seconds = ", seconds);
 }
 
 //+------------------------------------------------------------------+
