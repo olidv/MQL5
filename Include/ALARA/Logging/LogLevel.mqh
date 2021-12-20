@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Log4Mq5  .:.  https://github.com/olidv/Log4Mq5
+ * Log4Mql5  .:.  https://github.com/olidv/Log4Mql5
  * Copyright (c) 2021 by Oliveira Developer at Brazil
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy

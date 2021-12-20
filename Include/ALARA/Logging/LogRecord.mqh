@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Log4Mq5  .:.  https://github.com/olidv/Log4Mq5
+ * Log4Mql5  .:.  https://github.com/olidv/Log4Mql5
  * Copyright (c) 2021 by Oliveira Developer at Brazil
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -36,13 +36,14 @@
 //+------------------------------------------------------------------+
 struct SLogRecord
    {
-    datetime         timestamp;   // [%time]    Data-hora no momento da chamada
-    string           loggerName;  // [%logger]  Nome do logger que foi executado
-    string           fileName;    // [%file]    Nome do arquivo onde foi feita a chamada
-    string           methodName;  // [%method]  Nome do metodo onde foi feita a chamada
-    int              lineNumber;  // [%line]    Numero da linha onde foi feita a chamada
-    ENUM_LOG_LEVEL   level;       // [%level]   Level da mensagem de logging
-    string           message;     // [%msg]     Texto original da mensagem
+    datetime         timestamp;   // [%time]   Data-hora no momento da chamada
+    string           name;        // [%name]   Nome do logger que foi executado
+    string           package;     // [%pack]   Package do programa onde foi feita a chamada
+    string           program;     // [%prog]   Nome do programa onde foi feita a chamada
+    string           function;    // [%func]   Nome do metodo onde foi feita a chamada
+    ushort           line;        // [%line]   Numero da linha onde foi feita a chamada
+    ENUM_LOG_LEVEL   level;       // [%level]  Level da mensagem de logging
+    string           message;     // [%msg]    Texto original da mensagem
    };
 
 

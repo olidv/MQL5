@@ -24,20 +24,23 @@
 */
 #property library
 
-//--- Injecao das dependencias.
-#include "..\LogRecord.mqh"
-
 
 //+------------------------------------------------------------------+
-//| Interface IAppender.                                             |
+//| Enumeration ENUM_APPEND_TYPE.                                    |
 //|                                                                  |
-//| Usage: Definicao de metodos para as classes concretas que        |
-//|        efetuam a publicacao das mensagens de logging.            |
+//| Usage: Identificacao dos tipos de appenders utilizados para      |
+//|        registrar as mensagens de logging.                        |
 //+------------------------------------------------------------------+
-interface IAppender
+enum ENUM_APPEND_TYPE
    {
-//--- Efetua o processamento e grava o registro de logging.
-    bool             write(const SLogRecord &record);
+    APPEND_ALERT    =   1,   // Registra o logging em popup de alerta.
+    APPEND_COMMENT  =   2,   // Registra o logging no grafico.
+    APPEND_CONSOLE  =   4,   // Registra o logging na console.
+    APPEND_FILE     =   8,   // Registra o logging me arquivo.
+    APPEND_MAIL     =  16,   // Registra o logging enviando e-mail.
+    APPEND_PUSH     =  32,   // Registra o logging enviando notificacao push.
+    APPEND_SOUND    =  64,   // Registra o logging emitindo aviso sonoro.
+    APPEND_NONE     = 128    // Nenhum registro de loggin sera feito.
    };
 
 

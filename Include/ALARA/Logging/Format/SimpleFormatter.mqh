@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Log4Mq5  .:.  https://github.com/olidv/Log4Mq5
+ * Log4Mql5  .:.  https://github.com/olidv/Log4Mql5
  * Copyright (c) 2021 by Oliveira Developer at Brazil
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -38,7 +38,7 @@ class CSimpleFormatter: public CAbstractFormatter
    {
 public:
     //--- Construtores: Inicializa o layout utilizado internamente na formatacao.
-    void              CSimpleFormatter(string layout) : CAbstractFormatter(layout) {Print(__FILE__,"->",__FUNCTION__,"<",__LINE__,">");};
+    void              CSimpleFormatter(string layout) : CAbstractFormatter(layout) {Print(__PATH__,"->",__FUNCTION__,"<",__LINE__,">");};
 
     //--- Formata um registro de logging de acordo com o layout interno.
     virtual string    formatMessage(const SLogRecord &record);
@@ -49,7 +49,7 @@ public:
 //| Formata um registro de logging de acordo com o layout interno.   |
 //+------------------------------------------------------------------+
 string CSimpleFormatter::formatMessage(const SLogRecord &record)
-   {Print(__PATH__,"//",__FILE__,"->",__FUNCTION__,"<",__LINE__,">");
+   {Print(__PATH__,"->",__FUNCTION__,"<",__LINE__,">");
 // este metodo interno ja efetua toda a validacao necessaria:
     string msg = compilePattern(getLayout(), record);
 

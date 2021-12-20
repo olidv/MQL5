@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Log4Mq5  .:.  https://github.com/olidv/Log4Mq5
+ * Log4Mql5  .:.  https://github.com/olidv/Log4Mql5
  * Copyright (c) 2021 by Oliveira Developer at Brazil
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -70,7 +70,7 @@ public:
 //|             formatter.                                           |
 //+------------------------------------------------------------------+
 void CAbstractFormatter::CAbstractFormatter(string layout)
-   {Print(__FILE__,"->",__FUNCTION__,"<",__LINE__,">");
+   {Print(__PATH__,"->",__FUNCTION__,"<",__LINE__,">");
 // inicializa os parametros internos:
     m_layout = layout;
 
@@ -84,7 +84,7 @@ void CAbstractFormatter::CAbstractFormatter(string layout)
 //|            formatter.                                            |
 //+------------------------------------------------------------------+
 void CAbstractFormatter::~CAbstractFormatter()
-   {Print(__FILE__,"->",__FUNCTION__,"<",__LINE__,">");
+   {Print(__PATH__,"->",__FUNCTION__,"<",__LINE__,">");
 // elimina / fecha os recursos utilizados no formatter:
     close();
    };
@@ -94,7 +94,7 @@ void CAbstractFormatter::~CAbstractFormatter()
 //| Obtem o layout para formatacao de registros de logging.          |
 //+------------------------------------------------------------------+
 string CAbstractFormatter::getLayout()
-   {Print(__FILE__,"->",__FUNCTION__,"<",__LINE__,">");
+   {Print(__PATH__,"->",__FUNCTION__,"<",__LINE__,">");
     return m_layout;
    };
 
@@ -103,7 +103,7 @@ string CAbstractFormatter::getLayout()
 //| Executa procedimentos de inicializacao para o formatter.         |
 //+------------------------------------------------------------------+
 bool CAbstractFormatter::start()
-   {Print(__FILE__,"->",__FUNCTION__,"<",__LINE__,">");
+   {Print(__PATH__,"->",__FUNCTION__,"<",__LINE__,">");
 // nao ha o que processar aqui...
     return true;
    };
@@ -113,7 +113,7 @@ bool CAbstractFormatter::start()
 //| Processamento da formatacao utilizando layout e registrodo log.  |
 //+------------------------------------------------------------------+
 string CAbstractFormatter::compilePattern(string layout, const SLogRecord &record)
-   {Print(__FILE__,"->",__FUNCTION__,"<",__LINE__,">");
+   {Print(__PATH__,"->",__FUNCTION__,"<",__LINE__,">");
 // Verifica se o layout inicializado na classe eh valido:
     if(layout == NULL || layout == "" || StringFind(layout, "%") == -1)
        {
@@ -122,7 +122,7 @@ string CAbstractFormatter::compilePattern(string layout, const SLogRecord &recor
        }
 
 // Verifica se o registro de logging eh valido:
-    if(record.loggerName == NULL || record.loggerName == "" ||
+    if(record.name == NULL || record.name == "" ||
        record.level == NULL || record.level == 0 ||
        record.message == NULL || record.message == "")
        {
@@ -134,10 +134,10 @@ string CAbstractFormatter::compilePattern(string layout, const SLogRecord &recor
     string msg = layout;
     StringReplace(msg, "%time", TimeToString(record.timestamp,TIME_DATE|TIME_SECONDS));
     StringReplace(msg, "%level", LevelToString(record.level));
-    StringReplace(msg, "%logger", record.loggerName);
-    StringReplace(msg, "%file", record.fileName);
-    StringReplace(msg, "%method", record.methodName);
-    StringReplace(msg, "%line", IntegerToString(record.lineNumber));
+    StringReplace(msg, "%logger", record.name);
+    StringReplace(msg, "%file", record.program);
+    StringReplace(msg, "%method", record.function);
+    StringReplace(msg, "%line", IntegerToString(record.line));
     StringReplace(msg, "%msg", record.message);
 
     return msg;
@@ -148,7 +148,7 @@ string CAbstractFormatter::compilePattern(string layout, const SLogRecord &recor
 //| Encerra os recursos alocados e fecha arquivos, se necessario.    |
 //+------------------------------------------------------------------+
 bool CAbstractFormatter::close()
-   {Print(__FILE__,"->",__FUNCTION__,"<",__LINE__,">");
+   {Print(__PATH__,"->",__FUNCTION__,"<",__LINE__,">");
 // apenas limpa as variaveis internas:
     m_layout = NULL;
     

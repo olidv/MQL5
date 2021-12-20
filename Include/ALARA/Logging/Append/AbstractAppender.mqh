@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Log4Mq5  .:.  https://github.com/olidv/Log4Mq5
+ * Log4Mql5  .:.  https://github.com/olidv/Log4Mql5
  * Copyright (c) 2021 by Oliveira Developer at Brazil
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -90,7 +90,7 @@ void CAbstractAppender::CAbstractAppender(
     string name,
     ENUM_LOG_LEVEL level,
     IFormatter *formatter)
-   {Print(__FILE__,"->",__FUNCTION__,"<",__LINE__,">");
+   {Print(__PATH__,"->",__FUNCTION__,"<",__LINE__,">");
 // inicializa os parametros internos:
     m_name = name;
     m_level = level;
@@ -106,7 +106,7 @@ void CAbstractAppender::CAbstractAppender(
 //|            appender.                                             |
 //+------------------------------------------------------------------+
 void CAbstractAppender::~CAbstractAppender()
-   {Print(__FILE__,"->",__FUNCTION__,"<",__LINE__,">");
+   {Print(__PATH__,"->",__FUNCTION__,"<",__LINE__,">");
 // Se ainda houver registros de logging no cache, grava uma ultima vez:
     flush();
 
@@ -119,7 +119,7 @@ void CAbstractAppender::~CAbstractAppender()
 //| Obtem o nome do appender.                                        |
 //+------------------------------------------------------------------+
 string CAbstractAppender::getName()
-   {Print(__FILE__,"->",__FUNCTION__,"<",__LINE__,">");
+   {Print(__PATH__,"->",__FUNCTION__,"<",__LINE__,">");
     return m_name;
    };
 
@@ -128,7 +128,7 @@ string CAbstractAppender::getName()
 //| Obtem o level para o appender.                                   |
 //+------------------------------------------------------------------+
 ENUM_LOG_LEVEL CAbstractAppender::getLevel()
-   {Print(__FILE__,"->",__FUNCTION__,"<",__LINE__,">");
+   {Print(__PATH__,"->",__FUNCTION__,"<",__LINE__,">");
     return m_level;
    };
 
@@ -137,7 +137,7 @@ ENUM_LOG_LEVEL CAbstractAppender::getLevel()
 //| Obtem o formatador utilizado neste appender.                     |
 //+------------------------------------------------------------------+
 IFormatter* CAbstractAppender::getFormatter()
-   {Print(__FILE__,"->",__FUNCTION__,"<",__LINE__,">");
+   {Print(__PATH__,"->",__FUNCTION__,"<",__LINE__,">");
     return m_formatter;
    };
 
@@ -146,7 +146,7 @@ IFormatter* CAbstractAppender::getFormatter()
 //| Executa procedimentos de inicializacao para o appender.          |
 //+------------------------------------------------------------------+
 bool CAbstractAppender::start()
-   {Print(__FILE__,"->",__FUNCTION__,"<",__LINE__,">");
+   {Print(__PATH__,"->",__FUNCTION__,"<",__LINE__,">");
 // nao ha o que processar aqui...
     return true;
    };
@@ -156,7 +156,7 @@ bool CAbstractAppender::start()
 //| Verifica se o appender ira processar o registro de logging.      |
 //+------------------------------------------------------------------+
 bool CAbstractAppender::isLoggable(const SLogRecord &record)
-   {Print(__FILE__,"->",__FUNCTION__,"<",__LINE__,">");
+   {Print(__PATH__,"->",__FUNCTION__,"<",__LINE__,">");
 // somente ira permitir o registro de logging se o evento tiver maior prioridade.
     return record.level >= getLevel();
    }
@@ -166,7 +166,7 @@ bool CAbstractAppender::isLoggable(const SLogRecord &record)
 //| Formata um registro de logging de acordo com o layout interno.   |
 //+------------------------------------------------------------------+
 bool CAbstractAppender::write(const SLogRecord &record)
-   {Print(__FILE__,"->",__FUNCTION__,"<",__LINE__,">");
+   {Print(__PATH__,"->",__FUNCTION__,"<",__LINE__,">");
     static bool lock = false;  // Inicializado ao executar o programa (uma unica vez).
 
 // se o flag lock estiver ativo, entao ha um registro de loggin em processamento...
@@ -193,7 +193,7 @@ bool CAbstractAppender::write(const SLogRecord &record)
 //| Salva os registros de logging ainda em cache.                    |
 //+------------------------------------------------------------------+
 bool CAbstractAppender::flush()
-   {Print(__FILE__,"->",__FUNCTION__,"<",__LINE__,">");
+   {Print(__PATH__,"->",__FUNCTION__,"<",__LINE__,">");
 // nao ha o que processar aqui...
     return true;
    };
@@ -203,7 +203,7 @@ bool CAbstractAppender::flush()
 //| Encerra os recursos alocados e fecha arquivos, se necessario.    |
 //+------------------------------------------------------------------+
 bool CAbstractAppender::close()
-   {Print(__FILE__,"->",__FUNCTION__,"<",__LINE__,">");
+   {Print(__PATH__,"->",__FUNCTION__,"<",__LINE__,">");
 // apenas limpa as variaveis internas:
     m_name = NULL;
     //m_level = NULL;

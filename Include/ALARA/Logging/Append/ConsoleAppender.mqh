@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Log4Mq5  .:.  https://github.com/olidv/Log4Mq5
+ * Log4Mql5  .:.  https://github.com/olidv/Log4Mql5
  * Copyright (c) 2021 by Oliveira Developer at Brazil
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -44,7 +44,7 @@ public:
     //--- Construtores: Inicializa o layout utilizado internamente na formatacao.
     void              CConsoleAppender(string name,
                                        ENUM_LOG_LEVEL level,
-                                       IFormatter *formatter) : CAbstractAppender(name, level, formatter) {Print(__FILE__,"->",__FUNCTION__,"<",__LINE__,">");};
+                                       IFormatter *formatter) : CAbstractAppender(name, level, formatter) {Print(__PATH__,"->",__FUNCTION__,"<",__LINE__,">");};
    };
 
 
@@ -52,7 +52,7 @@ public:
 //| Grava o registro de logging.                                     |
 //+------------------------------------------------------------------+
 bool CConsoleAppender::doAppend(const SLogRecord &record)
-   {Print(__FILE__,"->",__FUNCTION__,"<",__LINE__,">");
+   {Print(__PATH__,"->",__FUNCTION__,"<",__LINE__,">");
 // formata a mensagem utilizando o formatter interno:
     string msg = getFormatter().formatMessage(record);
 

@@ -37,9 +37,9 @@ Print(record.level == 0);
 */
    record.timestamp = TimeCurrent();
    record.level = LOG_LEVEL_DEBUG;
-   record.methodName = __FUNCTION__;
-   record.lineNumber = __LINE__;
-   record.loggerName = __FILE__;
+   record.function = __FUNCTION__;
+   record.line= __LINE__;
+   record.name = __FILE__;
    record.message = "Simples teste de logging";
   
 

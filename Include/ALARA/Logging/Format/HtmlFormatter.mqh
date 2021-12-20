@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Log4Mq5  .:.  https://github.com/olidv/Log4Mq5
+ * Log4Mql5  .:.  https://github.com/olidv/Log4Mql5
  * Copyright (c) 2021 by Oliveira Developer at Brazil
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -43,8 +43,8 @@ private:
 
 public:
     //--- Construtores: Inicializa o layout utilizado internamente na formatacao.
-    void              CHtmlFormatter(void) : m_layout(LAYOUT_HTML_TABLE) {};
-    void              CHtmlFormatter(string layout) : m_layout(layout) {};
+    void              CHtmlFormatter(void) : CAbstractFormatter(LAYOUT_HTML_TABLE) {};
+    void              CHtmlFormatter(string layout) : CAbstractFormatter(layout) {Print(__PATH__,"->",__FUNCTION__,"<",__LINE__,">");};
 
     //--- Destrutores: Nao ha nenhum recurso em uso que necessite ser liberado/fechado.
     void             ~CHtmlFormatter(void) {};
