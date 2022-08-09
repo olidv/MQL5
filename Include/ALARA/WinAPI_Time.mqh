@@ -209,3 +209,10 @@ string SystemTimeToString() {
 const long HOJE_MILISSEGUNDOS = GetMillisecondsDate();
 
 //+------------------------------------------------------------------+
+//| Compoe uma data em milisegundos utilizando o horario fornecido.  |
+//+------------------------------------------------------------------+
+long addTimeToHoje(int localTime) {
+    return HOJE_MILISSEGUNDOS + localTime;
+}
+
+//+------------------------------------------------------------------+
