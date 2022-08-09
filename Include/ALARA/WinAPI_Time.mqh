@@ -208,11 +208,91 @@ string SystemTimeToString() {
 //+------------------------------------------------------------------+
 const long HOJE_MILISSEGUNDOS = GetMillisecondsDate();
 
+const int DIA_INC = 24 * 60 * 60;  // unidade para adicionar 1 dia a uma data.
+
+const int DIA_END = (24 * 60 * 60) - 1;  // unidade para adicionar 23:59:59 a uma data.
+
 //+------------------------------------------------------------------+
 //| Compoe uma data em milisegundos utilizando o horario fornecido.  |
 //+------------------------------------------------------------------+
 long addTimeToHoje(int localTime) {
     return HOJE_MILISSEGUNDOS + localTime;
 }
+
+void incMonth(MqlDateTime &dt_struct) {
+//--- Para incrementar, apenas tem que verificar se esta prestes a virar o ano:
+    if (dt_struct.mon == 12) {  // pula para o proximo ano:
+        dt_struct.mon = 1;
+        dt_struct.year = dt_struct.year + 1;
+    } else {  // apenas avanca para o proximo mes:
+        dt_struct.mon = dt_struct.mon + 1;
+    }
+}
+
+//+------------------------------------------------------------------+
+//| Calculos de periodos de datas, do primeiro ao ultimo dia do mes. |
+//+------------------------------------------------------------------+
+void PeriodPreviousMonth(datetime &firstDay, datetime &lastDay) {
+//--- Obtem a data atual utilizando estrutura para navegar para o mes anterior:
+    MqlDateTime dt_struct = {0};
+    TimeLocal(dt_struct);
+
+//--- A partir do primeiro dia do mes atual, navega para o ultimo dia do mes anterior:
+    dt_struct.day = 1;
+    dt_struct.hour = 23;
+    dt_struct.min = 59;
+    dt_struct.sec = 59;
+    lastDay = StructToTime(dt_struct) - DIA_INC;
+
+//--- A partir do primeiro dia do mes atual, navega para o ultimo dia do mes anterior:
+    TimeToStruct(lastDay, dt_struct);
+    dt_struct.day = 1;
+    dt_struct.hour = 0;
+    dt_struct.min = 0;
+    dt_struct.sec = 0;
+    firstDay = StructToTime(dt_struct);
+}
+
+void PeriodCurrentMonth(datetime &firstDay, datetime &lastDay) {
+//--- Obtem a data atual utilizando estrutura para obter o periodo do mes corrente:
+    MqlDateTime dt_struct = {0};
+    TimeLocal(dt_struct);
+
+//--- Para o primeiro dia, basta ajustar o dia da estrutura:
+    dt_struct.day = 1;  // primeiro dia do mes, inicio do periodo
+    dt_struct.hour = 0;
+    dt_struct.min = 0;
+    dt_struct.sec = 0;
+    firstDay = StructToTime(dt_struct);
+
+//--- Avanca para o mes seguinte e retrocede apenas um dia:
+    incMonth(dt_struct);  // Incrementa o mes, cuidado se estiver no final do ano
+    dt_struct.hour = 23;
+    dt_struct.min = 59;
+    dt_struct.sec = 59;
+    lastDay = StructToTime(dt_struct) - DIA_INC;
+}
+
+void PeriodNextMonth(datetime &firstDay, datetime &lastDay) {
+//--- Obtem a data atual utilizando estrutura para navegar para o proximo mes:
+    MqlDateTime dt_struct = {0};
+    TimeLocal(dt_struct);
+
+//--- Pula para o proximo mes e obtem o inicio do periodo:
+    incMonth(dt_struct);  // Incrementa o mes, cuidado se estiver no final do ano
+    dt_struct.day = 1;  // primeiro dia do mes, inicio do periodo
+    dt_struct.hour = 0;
+    dt_struct.min = 0;
+    dt_struct.sec = 0;
+    firstDay = StructToTime(dt_struct);
+
+//--- Avanca para o mes seguinte e retrocede apenas um dia:
+    incMonth(dt_struct);  // Incrementa o mes, cuidado se estiver no final do ano
+    dt_struct.hour = 23;
+    dt_struct.min = 59;
+    dt_struct.sec = 59;
+    lastDay = StructToTime(dt_struct) - DIA_INC;
+}
+
 
 //+------------------------------------------------------------------+
