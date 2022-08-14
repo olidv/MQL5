@@ -31,8 +31,7 @@
 //+------------------------------------------------------------------+
 //| Class CConsoleAppender.                                          |
 //|                                                                  |
-//| Usage: Definicao de metodos para as classes concretas que        |
-//|        efetuam a formatacao das mensagens de logging.            |
+//| Usage: Registro das mensagens de logging na console.             |
 //+------------------------------------------------------------------+
 class CConsoleAppender: public CAbstractAppender
    {
@@ -42,24 +41,37 @@ protected:
 
 public:
     //--- Construtores: Inicializa o layout utilizado internamente na formatacao.
-    void              CConsoleAppender(string name,
-                                       ENUM_LOG_LEVEL level,
-                                       IFormatter *formatter) : CAbstractAppender(name, level, formatter) {Print(__PATH__,"->",__FUNCTION__,"<",__LINE__,">");};
+    void              CConsoleAppender(const string name,
+                                       const ENUM_LOG_LEVEL level,
+                                       IFormatter *formatter) : CAbstractAppender(name, level, formatter) {};
+
+    //--- Informa o tipo de processamento e destinatario do appender:
+    virtual ENUM_APPEND_TYPE  getAppendType();
    };
 
 
 //+------------------------------------------------------------------+
-//| Grava o registro de logging.                                     |
+//| Informa o tipo deste appender.                                   |
+//+------------------------------------------------------------------+
+ENUM_APPEND_TYPE  CConsoleAppender::getAppendType()
+   {
+    return APPEND_CONSOLE;
+   }
+
+
+//+------------------------------------------------------------------+
+//| Imprime o registro de logging na console.                        |
 //+------------------------------------------------------------------+
 bool CConsoleAppender::doAppend(const SLogRecord &record)
-   {Print(__PATH__,"->",__FUNCTION__,"<",__LINE__,">");
+   {
 // formata a mensagem utilizando o formatter interno:
     string msg = getFormatter().formatMessage(record);
 
+// este appender apenas printa a mensagem formatada na console:
     Print(msg);
 
     return true;
-   };
+   }
 
 
 //+------------------------------------------------------------------+

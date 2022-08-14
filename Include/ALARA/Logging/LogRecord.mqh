@@ -27,6 +27,7 @@
 //--- Injecao das dependencias.
 #include "LogLevel.mqh"
 
+
 //+------------------------------------------------------------------+
 //| Structure SLogRecord.                                            |
 //|                                                                  |
@@ -38,11 +39,11 @@ struct SLogRecord final
     ENUM_LOG_LEVEL   level;       // [%level]  Level da mensagem de logging
     datetime         timestamp;   // [%time]   Data-hora no momento da chamada
     string           package;     // [%pack]   Package do programa onde foi feita a chamada
+    string           program;     // [%prog]   Nome do programa onde foi feita a chamada
     string           function;    // [%func]   Nome do metodo onde foi feita a chamada
     ushort           line;        // [%line]   Numero da linha onde foi feita a chamada
 
     string           name;        // [%name]   Nome do logger que foi executado
-    string           program;     // [%prog]   Nome do programa onde foi feita a chamada
     string           message;     // [%msg]    Texto original da mensagem
 
     SLogRecord       operator+ (const string msg)
@@ -54,82 +55,82 @@ struct SLogRecord final
 
 
 //+------------------------------------------------------------------+
-//| Funcoes de inicializacao para reducao de codigo na utilizacao.   |
+//| Cria novo registro de logging com nivel de rastreio/Trace.       |
 //+------------------------------------------------------------------+
-SLogRecord LogRecordTrace(string pathProgram, string function, ushort line) export
+SLogRecord LogRecordTrace(string pathProgram, string file, string function, ushort line) export
    {
-    SLogRecord srec = {LOG_LEVEL_TRACE, TimeLocal(), getPackage(pathProgram), function, line};
-
-    return srec;
-   }
-
-//+------------------------------------------------------------------+
-//|                                                                  |
-//+------------------------------------------------------------------+
-SLogRecord LogRecordDebug(string pathProgram, string function, ushort line) export
-   {
-    SLogRecord srec = {LOG_LEVEL_DEBUG, TimeLocal(), getPackage(pathProgram), function, line};
-
-    return srec;
-   }
-
-//+------------------------------------------------------------------+
-//|                                                                  |
-//+------------------------------------------------------------------+
-SLogRecord LogRecordInfo(string pathProgram, string function, ushort line) export
-   {
-    SLogRecord srec = {LOG_LEVEL_INFO, TimeLocal(), getPackage(pathProgram), function, line};
-
-    return srec;
-   }
-
-//+------------------------------------------------------------------+
-//|                                                                  |
-//+------------------------------------------------------------------+
-SLogRecord LogRecordWarn(string pathProgram, string function, ushort line) export
-   {
-    SLogRecord srec = {LOG_LEVEL_WARN, TimeLocal(), getPackage(pathProgram), function, line};
-
-    return srec;
-   }
-
-//+------------------------------------------------------------------+
-//|                                                                  |
-//+------------------------------------------------------------------+
-SLogRecord LogRecordError(string pathProgram, string function, ushort line) export
-   {
-    SLogRecord srec = {LOG_LEVEL_ERROR, TimeLocal(), getPackage(pathProgram), function, line};
-
-    return srec;
-   }
-
-//+------------------------------------------------------------------+
-//|                                                                  |
-//+------------------------------------------------------------------+
-SLogRecord LogRecordFatal(string pathProgram, string function, ushort line) export
-   {
-    SLogRecord srec = {LOG_LEVEL_FATAL, TimeLocal(), getPackage(pathProgram), function, line};
+    SLogRecord srec = {LOG_LEVEL_TRACE, TimeLocal(), getPackage(pathProgram), file, function, line};
 
     return srec;
    }
 
 
 //+------------------------------------------------------------------+
-//| Funcoes Helpers...                                               |
+//| Cria novo registro de logging com nivel Debug.                   |
 //+------------------------------------------------------------------+
-const string TERM_DATA_PATH = TerminalInfoString(TERMINAL_DATA_PATH);
-const int    PACK_INIT_PATH = StringLen(TERM_DATA_PATH) + 6;  // ...\MQL5\...
+SLogRecord LogRecordDebug(string pathProgram, string file, string function, ushort line) export
+   {
+    SLogRecord srec = {LOG_LEVEL_DEBUG, TimeLocal(), getPackage(pathProgram), file, function, line};
+
+    return srec;
+   }
+
 
 //+------------------------------------------------------------------+
-//|                                                                  |
+//| Cria novo registro de logging com nivel Informativo.             |
+//+------------------------------------------------------------------+
+SLogRecord LogRecordInfo(string pathProgram, string file, string function, ushort line) export
+   {
+    SLogRecord srec = {LOG_LEVEL_INFO, TimeLocal(), getPackage(pathProgram), file, function, line};
+
+    return srec;
+   }
+
+
+//+------------------------------------------------------------------+
+//| Cria novo registro de logging com nivel de alerta/aviso.         |
+//+------------------------------------------------------------------+
+SLogRecord LogRecordWarn(string pathProgram, string file, string function, ushort line) export
+   {
+    SLogRecord srec = {LOG_LEVEL_WARN, TimeLocal(), getPackage(pathProgram), file, function, line};
+
+    return srec;
+   }
+
+
+//+------------------------------------------------------------------+
+//| Cria novo registro de logging com nivel de Erro.                 |
+//+------------------------------------------------------------------+
+SLogRecord LogRecordError(string pathProgram, string file, string function, ushort line) export
+   {
+    SLogRecord srec = {LOG_LEVEL_ERROR, TimeLocal(), getPackage(pathProgram), file, function, line};
+
+    return srec;
+   }
+
+
+//+------------------------------------------------------------------+
+//| Cria novo registro de logging com nivel Fatal.                   |
+//+------------------------------------------------------------------+
+SLogRecord LogRecordFatal(string pathProgram, string file, string function, ushort line) export
+   {
+    SLogRecord srec = {LOG_LEVEL_FATAL, TimeLocal(), getPackage(pathProgram), file, function, line};
+
+    return srec;
+   }
+
+
+//+------------------------------------------------------------------+
+//| Transforma o path do programa em forma de pacote <aa.bb.cc>.     |
 //+------------------------------------------------------------------+
 string getPackage(string pathProgram)
    {
 // De    C:\Users\qdev\AppData\Roaming\MetaQuotes\Terminal\9AA5A2E564E1326FB93349159C9D30A4\MQL5\Experts\ALARA\Logging.mq5
 // Para  Experts.ALARA.Logging
+    static string TERM_DATA_PATH = TerminalInfoString(TERMINAL_DATA_PATH);
+    static int    PACK_INIT_PATH = StringLen(TERM_DATA_PATH) + 6;  // ...\MQL5\...
 
     string package = pathProgram;
-
     if(StringFind(pathProgram, TERM_DATA_PATH) == 0)
        {
         int endPath = StringLen(pathProgram) - PACK_INIT_PATH - 4;
@@ -140,20 +141,5 @@ string getPackage(string pathProgram)
     return package;
    }
 
-//+------------------------------------------------------------------+
-//|                                                                  |
-//+------------------------------------------------------------------+
-string StrFormat(string text)
-   {
-    return text;
-   }
-
-//+------------------------------------------------------------------+
-//|                                                                  |
-//+------------------------------------------------------------------+
-string StrFormat(string text, string val1)
-   {
-    return StringFormat(text, val1);
-   }
 
 //+------------------------------------------------------------------+

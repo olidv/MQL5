@@ -24,11 +24,95 @@
 */
 #property library
 
-//+------------------------------------------------------------------+
-//| defines                                                          |
-//+------------------------------------------------------------------+
-// #define Var   "Val"
+//--- Injecao das dependencias.
+#include "AbstractAppender.mqh"
+
 
 //+------------------------------------------------------------------+
-//| . |
+//| Class CFileAppender.                                             |
+//|                                                                  |
+//| Usage: Registro das mensagens de logging em arquivo.             |
+//+------------------------------------------------------------------+
+class CFileAppender: public CAbstractAppender
+   {
+private:
+    //--- Declaracao das variaveis de instancia (propriedades):
+    int              hndLogFile;   // handle para arquivo de logging gerado.
+
+protected:
+    //--- Grava o registro de logging.
+    virtual bool      doAppend(const SLogRecord &record);
+
+public:
+    //--- Construtores: Inicializa o layout utilizado internamente na formatacao.
+    void              CFileAppender(const string name,
+                                    const ENUM_LOG_LEVEL level,
+                                    IFormatter *formatter) : CAbstractAppender(name, level, formatter) {};
+
+    //--- Informa o tipo de processamento e destinatario do appender:
+    virtual ENUM_APPEND_TYPE  getAppendType();
+
+    //--- Executa procedimentos de inicializacao para o appender.
+    virtual bool      start();
+
+    //--- Salva os registros de logging ainda em cache.
+    virtual bool      flush(const bool closing);
+
+    //--- Encerra os recursos alocados e fecha arquivos, se necessario.
+    virtual bool      close();
+   };
+
+
+//+------------------------------------------------------------------+
+//| Informa o tipo deste appender.                                   |
+//+------------------------------------------------------------------+
+ENUM_APPEND_TYPE  CFileAppender::getAppendType()
+   {
+    return APPEND_FILE;
+   }
+
+
+//+------------------------------------------------------------------+
+//| Executa procedimentos de inicializacao para o appender.          |
+//+------------------------------------------------------------------+
+bool CFileAppender::start()
+   {
+    this.hndLogFile = INVALID_HANDLE;
+    return true;
+   }
+
+
+//+------------------------------------------------------------------+
+//| Salva os registros de logging ainda em cache.                    |
+//+------------------------------------------------------------------+
+bool CFileAppender::flush(const bool closing)
+   {
+    return true;
+   }
+
+
+//+------------------------------------------------------------------+
+//| Encerra os recursos alocados e fecha arquivos, se necessario.    |
+//+------------------------------------------------------------------+
+bool CFileAppender::close()
+   {
+    return true;
+   }
+
+
+//+------------------------------------------------------------------+
+//| Grava o registro de logging em arquivo.                          |
+//+------------------------------------------------------------------+
+bool CFileAppender::doAppend(const SLogRecord &record)
+   {
+// formata a mensagem utilizando o formatter interno:
+    string msg = getFormatter().formatMessage(record);
+
+// este appender apenas printa a mensagem formatada na console:
+    Print(msg);
+
+    return true;
+   }
+
+
 //+------------------------------------------------------------------+

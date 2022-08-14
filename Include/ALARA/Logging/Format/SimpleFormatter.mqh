@@ -38,7 +38,11 @@ class CSimpleFormatter: public CAbstractFormatter
    {
 public:
     //--- Construtores: Inicializa o layout utilizado internamente na formatacao.
-    void              CSimpleFormatter(string layout) : CAbstractFormatter(layout) {Print(__PATH__,"->",__FUNCTION__,"<",__LINE__,">");};
+    void              CSimpleFormatter(const string layout) : CAbstractFormatter(layout) {};
+
+
+    //--- Informa o tipo de formato do layout utilizado:
+    virtual ENUM_FORMAT_TYPE getFormatType();
 
     //--- Formata um registro de logging de acordo com o layout interno.
     virtual string    formatMessage(const SLogRecord &record);
@@ -46,16 +50,24 @@ public:
 
 
 //+------------------------------------------------------------------+
+//| Informa o tipo de formato do layout utilizado.                   |
+//+------------------------------------------------------------------+
+ENUM_FORMAT_TYPE CSimpleFormatter::getFormatType()
+   {
+    return FORMAT_TEXT;
+   }
+
+//+------------------------------------------------------------------+
 //| Formata um registro de logging de acordo com o layout interno.   |
 //+------------------------------------------------------------------+
 string CSimpleFormatter::formatMessage(const SLogRecord &record)
-   {Print(__PATH__,"->",__FUNCTION__,"<",__LINE__,">");
+   {
 // este metodo interno ja efetua toda a validacao necessaria:
-    string msg = compilePattern(getLayout(), record);
+    string msg = compilePattern(record);
 
 // retorna a mensagem de logging em uma unica linha (texto simples).
     return msg;
-   };
+   }
 
 
 //+------------------------------------------------------------------+

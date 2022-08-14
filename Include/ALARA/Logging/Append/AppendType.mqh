@@ -34,7 +34,7 @@
 enum ENUM_APPEND_TYPE
    {
     APPEND_ALERT    =   1,   // Registra o logging em popup de alerta.
-    APPEND_COMMENT  =   2,   // Registra o logging no grafico.
+    APPEND_CHART    =   2,   // Registra o logging no grafico.
     APPEND_CONSOLE  =   4,   // Registra o logging na console.
     APPEND_FILE     =   8,   // Registra o logging me arquivo.
     APPEND_MAIL     =  16,   // Registra o logging enviando e-mail.

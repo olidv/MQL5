@@ -25,6 +25,7 @@
 #property library
 
 //--- Injecao das dependencias.
+#include "AppendType.mqh"
 #include "..\LogRecord.mqh"
 
 
@@ -36,8 +37,17 @@
 //+------------------------------------------------------------------+
 interface IAppender
    {
+//--- Informa o tipo de processamento e destinatario do appender:
+    ENUM_APPEND_TYPE  getAppendType();
+
+//--- Obtem o level para o appender.
+    ENUM_LOG_LEVEL    getLevel();
+
+//--- Verifica se o appender ira considerar o registro de logging.
+    bool      isLoggable(const SLogRecord &record);
+
 //--- Efetua o processamento e grava o registro de logging.
-    bool             write(const SLogRecord &record);
+    bool      write(const SLogRecord &record);
    };
 
 
