@@ -46,8 +46,14 @@ interface IAppender
 //--- Verifica se o appender ira considerar o registro de logging.
     bool      isLoggable(const SLogRecord &record);
 
+//--- Executa procedimentos de inicializacao para o appender.
+    bool      start();
+
 //--- Efetua o processamento e grava o registro de logging.
     bool      write(const SLogRecord &record);
+
+//--- Encerra os recursos alocados e fecha arquivos, se necessario.
+    bool      close();
    };
 
 

@@ -53,14 +53,8 @@ protected:
     //--- Grava o registro de logging.
     virtual bool      doAppend(const SLogRecord &record) = NULL;
 
-    //--- Executa procedimentos de inicializacao para o appender.
-    virtual bool      start();
-
     //--- Salva os registros de logging ainda em cache.
     virtual bool      flush(const bool closing);
-
-    //--- Encerra os recursos alocados e fecha arquivos, se necessario.
-    virtual bool      close();
 
 public:
     //--- Construtor: Inicializa parametros internos e configura o appender.
@@ -82,8 +76,14 @@ public:
     //--- Verifica se o appender ira considerar o registro de logging.
     virtual bool      isLoggable(const SLogRecord &record);
 
+    //--- Executa procedimentos de inicializacao para o appender.
+    virtual bool      start();
+
     //--- Grava o registro de logging.
     virtual bool      write(const SLogRecord &record);
+
+    //--- Encerra os recursos alocados e fecha arquivos, se necessario.
+    virtual bool      close();
    };
 
 
@@ -94,12 +94,9 @@ public:
 void CAbstractAppender::CAbstractAppender(const string name, const ENUM_LOG_LEVEL level)
    {
 // inicializa os parametros internos:
-    m_name = name;
-    m_level = level;
-    m_formatter = NULL;
-
-// executa os procedimentos necessarios para iniciar o uso do appender:
-    start();
+    this.m_name = name;
+    this.m_level = level;
+    this.m_formatter = NULL;
    }
 
 
@@ -110,12 +107,9 @@ void CAbstractAppender::CAbstractAppender(const string name, const ENUM_LOG_LEVE
 void CAbstractAppender::CAbstractAppender(const string name, const ENUM_LOG_LEVEL level, IFormatter *formatter)
    {
 // inicializa os parametros internos:
-    m_name = name;
-    m_level = level;
-    m_formatter = formatter;
-
-// executa os procedimentos necessarios para iniciar o uso do appender:
-    start();
+    this.m_name = name;
+    this.m_level = level;
+    this.m_formatter = formatter;
    }
 
 
@@ -125,11 +119,13 @@ void CAbstractAppender::CAbstractAppender(const string name, const ENUM_LOG_LEVE
 //+------------------------------------------------------------------+
 void CAbstractAppender::~CAbstractAppender()
    {
-// Se ainda houver registros de logging no cache, grava uma ultima vez:
-    flush(true);  // agora sim, esta encerrando o appender.
+// apenas limpa as variaveis internas:
+    this.m_name = NULL;
+// this.m_level = NULL;
 
-// elimina / fecha os recursos utilizados no appender:
-    close();
+// eh preciso excluir a referencia do objeto formatter interno:
+    delete(this.m_formatter);
+    this.m_formatter = NULL;
    }
 
 
@@ -138,7 +134,7 @@ void CAbstractAppender::~CAbstractAppender()
 //+------------------------------------------------------------------+
 string CAbstractAppender::getName()
    {
-    return m_name;
+    return this.m_name;
    }
 
 
@@ -147,7 +143,7 @@ string CAbstractAppender::getName()
 //+------------------------------------------------------------------+
 IFormatter* CAbstractAppender::getFormatter()
    {
-    return m_formatter;
+    return this.m_formatter;
    }
 
 
@@ -156,7 +152,7 @@ IFormatter* CAbstractAppender::getFormatter()
 //+------------------------------------------------------------------+
 ENUM_LOG_LEVEL CAbstractAppender::getLevel()
    {
-    return m_level;
+    return this.m_level;
    }
 
 
@@ -175,7 +171,9 @@ bool CAbstractAppender::isLoggable(const SLogRecord &record)
 //+------------------------------------------------------------------+
 bool CAbstractAppender::start()
    {
-// nao ha o que processar aqui...
+//--- ao inicializar o appender, tambem inicializa o formatter incluso.
+    this.m_formatter.start();
+
     return true;
    }
 
@@ -197,10 +195,10 @@ bool CAbstractAppender::write(const SLogRecord &record)
     lock = true;
 
 // efetua o processamento do registro de logging:
-    doAppend(record);
+    this.doAppend(record);
 
 // realiza a logica interna do flushing, caso seja necessario:
-    flush(false);  // avisa que ainda nao esta encerrando o appender...
+    this.flush(false);  // avisa que ainda nao esta encerrando o appender...
 
 // ao final, inativa o flag de lock:
     lock = false;
@@ -225,13 +223,11 @@ bool CAbstractAppender::flush(const bool closing)
 //+------------------------------------------------------------------+
 bool CAbstractAppender::close()
    {
-// apenas limpa as variaveis internas:
-    m_name = NULL;
-// m_level = NULL;
+// Se ainda houver registros de logging no cache, grava uma ultima vez:
+    this.flush(true);  // agora sim, esta encerrando o appender.
 
-// eh preciso excluir a referencia do objeto formatter interno:
-    delete(m_formatter);
-    m_formatter = NULL;
+//--- ao encerrar o appender, tambem notifica o formatter incluso para encerrar.
+    this.m_formatter.close();
 
     return true;
    }

@@ -108,21 +108,21 @@ string LevelToString(const ENUM_LOG_LEVEL level) export
     switch(level)
        {
         case LOG_LEVEL_ALL:
-            return "ALL";
+            return "ALL  ";
         case LOG_LEVEL_TRACE:
             return "TRACE";
         case LOG_LEVEL_DEBUG:
             return "DEBUG";
         case LOG_LEVEL_INFO:
-            return "INFOR";
+            return "INFO ";
         case LOG_LEVEL_WARN:
-            return "WARNG";
+            return "WARN ";
         case LOG_LEVEL_ERROR:
             return "ERROR";
         case LOG_LEVEL_FATAL:
             return "FATAL";
         case LOG_LEVEL_OFF:
-            return "OFF";
+            return "OFF  ";
         default:
             return "";
        }
