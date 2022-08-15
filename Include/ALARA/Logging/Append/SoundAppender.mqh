@@ -25,48 +25,76 @@
 #property library
 
 //--- Injecao das dependencias.
-#include "AbstractFormatter.mqh"
+#include "AbstractAppender.mqh"
 
 
 //+------------------------------------------------------------------+
-//| Class CSimpleFormatter.                                          |
+//| Arquivos de som para emissao de notificacao sonora.              |
+//+------------------------------------------------------------------+
+#resource "\\Sounds\\fatal.wav"
+#resource "\\Sounds\\error.wav"
+#resource "\\Sounds\\warn.wav"
+#resource "\\Sounds\\info.wav"
+
+#define WAVE_FATAL "::Sounds\\fatal.wav"
+#define WAVE_ERROR "::Sounds\\error.wav"
+#define WAVE_WARN  "::Sounds\\warn.wav"
+#define WAVE_INFO  "::Sounds\\info.wav"
+
+
+//+------------------------------------------------------------------+
+//| Class CSoundAppender.                                            |
 //|                                                                  |
-//| Usage: Definicao de metodos para as classes concretas que        |
-//|        efetuam a formatacao das mensagens de logging.            |
+//| Usage: Notificacao das mensagens de logging na forma sonora.     |
 //+------------------------------------------------------------------+
-class CSimpleFormatter: public CAbstractFormatter
+class CSoundAppender: public CAbstractAppender
    {
+protected:
+    //--- Grava o registro de logging.
+    virtual bool      doAppend(const SLogRecord &record);
+
 public:
     //--- Construtores: Inicializa o layout utilizado internamente na formatacao.
-    void              CSimpleFormatter(const string layout) : CAbstractFormatter(layout) {};
+    void              CSoundAppender(const string name,
+                                     const ENUM_LOG_LEVEL level) : CAbstractAppender(name, level) {};
 
-
-    //--- Informa o tipo de formato do layout utilizado:
-    virtual ENUM_FORMAT_TYPE getFormatType();
-
-    //--- Formata um registro de logging de acordo com o layout interno.
-    virtual string    formatMessage(const SLogRecord &record);
+    //--- Informa o tipo de processamento e destinatario do appender:
+    virtual ENUM_APPEND_TYPE  getAppendType();
    };
 
 
 //+------------------------------------------------------------------+
-//| Informa o tipo de formato do layout utilizado.                   |
+//| Informa o tipo deste appender.                                   |
 //+------------------------------------------------------------------+
-ENUM_FORMAT_TYPE CSimpleFormatter::getFormatType()
+ENUM_APPEND_TYPE  CSoundAppender::getAppendType()
    {
-    return FORMAT_TEXT;
+    return APPEND_SOUND;
    }
 
-//+------------------------------------------------------------------+
-//| Formata um registro de logging de acordo com o layout interno.   |
-//+------------------------------------------------------------------+
-string CSimpleFormatter::formatMessage(const SLogRecord &record)
-   {
-// este metodo interno ja efetua toda a validacao necessaria:
-    string msg = compilePattern(record);
 
-// retorna a mensagem de logging em uma unica linha (texto simples).
-    return msg;
+//+------------------------------------------------------------------+
+//| Imprime o registro de logging na console.                        |
+//+------------------------------------------------------------------+
+bool CSoundAppender::doAppend(const SLogRecord &record)
+   {
+// apenas considera o level do registro de logging, ignorando a mensagem.
+    switch(record.level)
+       {
+        case LOG_LEVEL_FATAL:
+            PlaySound(WAVE_FATAL);
+            break;
+        case LOG_LEVEL_ERROR:
+            PlaySound(WAVE_ERROR);
+            break;
+        case LOG_LEVEL_WARN:
+            PlaySound(WAVE_WARN);
+            break;
+        case LOG_LEVEL_INFO:
+            PlaySound(WAVE_INFO);
+            break;
+       }
+
+    return true;
    }
 
 
