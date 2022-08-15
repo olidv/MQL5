@@ -39,6 +39,8 @@
 /Scripts/Examples
 /Scripts/UnitTests
 /experts.dat
+/mql5.content
+/mql5.index
 
 # Descarta executaveis / compilados
 **/*.ex5
