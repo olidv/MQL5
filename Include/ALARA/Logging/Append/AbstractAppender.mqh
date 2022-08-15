@@ -124,8 +124,11 @@ void CAbstractAppender::~CAbstractAppender()
 // this.m_level = NULL;
 
 // eh preciso excluir a referencia do objeto formatter interno:
-    delete(this.m_formatter);
-    this.m_formatter = NULL;
+    if(this.m_formatter != NULL)    // alguns appenders nao precisam de formatter...
+       {
+        delete(this.m_formatter);
+        this.m_formatter = NULL;
+       }
    }
 
 
@@ -171,8 +174,11 @@ bool CAbstractAppender::isLoggable(const SLogRecord &record)
 //+------------------------------------------------------------------+
 bool CAbstractAppender::start()
    {
-//--- ao inicializar o appender, tambem inicializa o formatter incluso.
-    this.m_formatter.start();
+//--- ao inicializar o appender, tambem inicializa o formatter incluso, se existir.
+    if(this.m_formatter != NULL)    // alguns appenders nao precisam de formatter...
+       {
+        this.m_formatter.start();
+       }
 
     return true;
    }
@@ -227,7 +233,10 @@ bool CAbstractAppender::close()
     this.flush(true);  // agora sim, esta encerrando o appender.
 
 //--- ao encerrar o appender, tambem notifica o formatter incluso para encerrar.
-    this.m_formatter.close();
+    if(this.m_formatter != NULL)    // alguns appenders nao precisam de formatter...
+       {
+        this.m_formatter.close();
+       }
 
     return true;
    }
