@@ -38,22 +38,22 @@
 interface IAppender
    {
 //--- Informa o tipo de processamento e destinatario do appender:
-    ENUM_APPEND_TYPE  getAppendType();
+    EAppendType getAppendType();
 
 //--- Obtem o level para o appender.
-    ENUM_LOG_LEVEL    getLevel();
+    ELogLevel   getLevel();
 
 //--- Verifica se o appender ira considerar o registro de logging.
-    bool      isLoggable(const SLogRecord &record);
+    bool        isLoggable(const SLogRecord &record);
 
 //--- Executa procedimentos de inicializacao para o appender.
-    bool      start();
+    bool        start();
 
 //--- Efetua o processamento e grava o registro de logging.
-    bool      write(const SLogRecord &record);
+    bool        write(const SLogRecord &record);
 
 //--- Encerra os recursos alocados e fecha arquivos, se necessario.
-    bool      close();
+    bool        close();
    };
 
 

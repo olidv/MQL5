@@ -51,22 +51,22 @@ class CSoundAppender: public CAbstractAppender
    {
 protected:
     //--- Grava o registro de logging.
-    virtual bool      doAppend(const SLogRecord &record);
+    virtual bool        doAppend(const SLogRecord &record);
 
 public:
     //--- Construtores: Inicializa o layout utilizado internamente na formatacao.
-    void              CSoundAppender(const string name,
-                                     const ENUM_LOG_LEVEL level) : CAbstractAppender(name, level) {};
+    void                CSoundAppender(const string name,
+                                       const ELogLevel level) : CAbstractAppender(name, level) {};
 
     //--- Informa o tipo de processamento e destinatario do appender:
-    virtual ENUM_APPEND_TYPE  getAppendType();
+    virtual EAppendType getAppendType();
    };
 
 
 //+------------------------------------------------------------------+
 //| Informa o tipo deste appender.                                   |
 //+------------------------------------------------------------------+
-ENUM_APPEND_TYPE  CSoundAppender::getAppendType()
+EAppendType CSoundAppender::getAppendType()
    {
     return APPEND_SOUND;
    }

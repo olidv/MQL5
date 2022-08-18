@@ -26,13 +26,13 @@
 
 
 //+------------------------------------------------------------------+
-//| Enumeration ENUM_LOG_LEVEL.                                      |
+//| Enumeration ELogLevel.                                           |
 //|                                                                  |
 //| Usage: Categorizacao do nivel do registro de logging para        |
 //|        identificar como a mensagem de logging sera registrada.   |
 //|        Quanto maior o level (numero inteiro), maior a prioridade.|
 //+------------------------------------------------------------------+
-enum ENUM_LOG_LEVEL
+enum ELogLevel
    {
     LOG_LEVEL_ALL    = INT_MIN,   // Registrara tudo
     LOG_LEVEL_TRACE  = 100,       // Rastro da execucao
@@ -48,7 +48,7 @@ enum ENUM_LOG_LEVEL
 //+------------------------------------------------------------------+
 //| Converte um texto string em seu respectivo valor enumerado.      |
 //+------------------------------------------------------------------+
-ENUM_LOG_LEVEL StringToLevel(const string level) export
+ELogLevel StringToLevel(const string level) export
    {
 //--- Relacao de todos os levels para facilitar validacao...
     static string LOG_LEVELS = "ALL, TRACE, DEBUG, INFO, INFOR, WARN, WARNG, ERROR, FATAL, OFF";
@@ -96,7 +96,7 @@ ENUM_LOG_LEVEL StringToLevel(const string level) export
 //+------------------------------------------------------------------+
 //| Converte um valor enumerado para sua representacao em string.    |
 //+------------------------------------------------------------------+
-string LevelToString(const ENUM_LOG_LEVEL level) export
+string LevelToString(const ELogLevel level) export
    {
 // valores invalidos nao podem ser convertidos:
     if(level == NULL)

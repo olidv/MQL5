@@ -36,7 +36,7 @@
 //+------------------------------------------------------------------+
 struct SLogRecord final
    {
-    ENUM_LOG_LEVEL   level;       // [%level]  Level da mensagem de logging
+    ELogLevel        level;       // [%level]  Level da mensagem de logging
     datetime         timestamp;   // [%time]   Data-hora no momento da chamada
     string           package;     // [%pack]   Package do programa onde foi feita a chamada
     string           program;     // [%prog]   Nome do programa onde foi feita a chamada

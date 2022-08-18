@@ -38,21 +38,21 @@ class CHtmlFormatter: public CAbstractFormatter
    {
 public:
     //--- Construtores: Inicializa o layout utilizado internamente na formatacao.
-    void              CHtmlFormatter(const string layout) : CAbstractFormatter(layout) {};
+    void                CHtmlFormatter(const string layout) : CAbstractFormatter(layout) {};
 
 
     //--- Informa o tipo de formato do layout utilizado:
-    virtual ENUM_FORMAT_TYPE getFormatType();
+    virtual EFormatType getFormatType();
 
     //--- Formata um registro de logging de acordo com o layout interno.
-    virtual string    formatMessage(const SLogRecord &record);
+    virtual string      formatMessage(const SLogRecord &record);
    };
 
 
 //+------------------------------------------------------------------+
 //| Informa o tipo de formato do layout utilizado.                   |
 //+------------------------------------------------------------------+
-ENUM_FORMAT_TYPE CHtmlFormatter::getFormatType()
+EFormatType CHtmlFormatter::getFormatType()
    {
     return FORMAT_HTML;
    }

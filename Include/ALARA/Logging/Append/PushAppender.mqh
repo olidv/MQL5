@@ -37,23 +37,23 @@ class CPushAppender: public CAbstractAppender
    {
 protected:
     //--- Grava o registro de logging.
-    virtual bool      doAppend(const SLogRecord &record);
+    virtual bool        doAppend(const SLogRecord &record);
 
 public:
     //--- Construtores: Inicializa o layout utilizado internamente na formatacao.
-    void              CPushAppender(const string name,
-                                    const ENUM_LOG_LEVEL level,
-                                    IFormatter *formatter) : CAbstractAppender(name, level, formatter) {};
+    void                CPushAppender(const string name,
+                                      const ELogLevel level,
+                                      IFormatter *formatter) : CAbstractAppender(name, level, formatter) {};
 
     //--- Informa o tipo de processamento e destinatario do appender:
-    virtual ENUM_APPEND_TYPE  getAppendType();
+    virtual EAppendType getAppendType();
    };
 
 
 //+------------------------------------------------------------------+
 //| Informa o tipo deste appender.                                   |
 //+------------------------------------------------------------------+
-ENUM_APPEND_TYPE  CPushAppender::getAppendType()
+EAppendType CPushAppender::getAppendType()
    {
     return APPEND_PUSH;
    }

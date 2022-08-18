@@ -25,8 +25,8 @@
 #property library
 
 //--- Injecao das dependencias.
-#include "..\Format\IFormatter.mqh"
-#include "IAppender.mqh"
+#include "..\Format\Formatter.mqh"
+#include "Appender.mqh"
 
 
 //+------------------------------------------------------------------+
@@ -39,51 +39,51 @@ class CAbstractAppender: public IAppender
    {
 private:
     //--- Declaracao das variaveis de instancia (propriedades):
-    string            m_name;
-    ENUM_LOG_LEVEL    m_level;
-    IFormatter*       m_formatter;
+    string              m_name;
+    ELogLevel           m_level;
+    IFormatter*         m_formatter;
 
 protected:
     //--- Obtem o nome/identificacao do appender.
-    string            getName();
+    string              getName();
 
     //--- Obtem o formatador utilizado neste appender.
-    IFormatter*       getFormatter();
+    IFormatter*         getFormatter();
 
     //--- Grava o registro de logging.
-    virtual bool      doAppend(const SLogRecord &record) = NULL;
+    virtual bool        doAppend(const SLogRecord &record) = NULL;
 
     //--- Salva os registros de logging ainda em cache.
-    virtual bool      flush(const bool closing);
+    virtual bool        flush(const bool closing);
 
 public:
     //--- Construtor: Inicializa parametros internos e configura o appender.
-    void              CAbstractAppender(const string name,
-                                        const ENUM_LOG_LEVEL level);
-    void              CAbstractAppender(const string name,
-                                        const ENUM_LOG_LEVEL level,
-                                        IFormatter *formatter);
+    void                CAbstractAppender(const string name,
+                                          const ELogLevel level);
+    void                CAbstractAppender(const string name,
+                                          const ELogLevel level,
+                                          IFormatter *formatter);
 
     //--- Destrutor: Encerra e libera quaisquer recursos em uso pelo appender.
-    void             ~CAbstractAppender(void);
+    void               ~CAbstractAppender(void);
 
     //--- Informa o tipo de processamento e destinatario do appender:
-    virtual ENUM_APPEND_TYPE  getAppendType() = NULL;
+    virtual EAppendType getAppendType() = NULL;
 
     //--- Obtem o level para o appender.
-    virtual ENUM_LOG_LEVEL    getLevel();
+    virtual ELogLevel   getLevel();
 
     //--- Verifica se o appender ira considerar o registro de logging.
-    virtual bool      isLoggable(const SLogRecord &record);
+    virtual bool        isLoggable(const SLogRecord &record);
 
     //--- Executa procedimentos de inicializacao para o appender.
-    virtual bool      start();
+    virtual bool        start();
 
     //--- Grava o registro de logging.
-    virtual bool      write(const SLogRecord &record);
+    virtual bool        write(const SLogRecord &record);
 
     //--- Encerra os recursos alocados e fecha arquivos, se necessario.
-    virtual bool      close();
+    virtual bool        close();
    };
 
 
@@ -91,7 +91,7 @@ public:
 //| Construtor: Inicializa parametros internos e configura o         |
 //|             appender.                                            |
 //+------------------------------------------------------------------+
-void CAbstractAppender::CAbstractAppender(const string name, const ENUM_LOG_LEVEL level)
+void CAbstractAppender::CAbstractAppender(const string name, const ELogLevel level)
    {
 // inicializa os parametros internos:
     this.m_name = name;
@@ -104,7 +104,7 @@ void CAbstractAppender::CAbstractAppender(const string name, const ENUM_LOG_LEVE
 //| Construtor: Inicializa parametros internos e configura o         |
 //|             appender.                                            |
 //+------------------------------------------------------------------+
-void CAbstractAppender::CAbstractAppender(const string name, const ENUM_LOG_LEVEL level, IFormatter *formatter)
+void CAbstractAppender::CAbstractAppender(const string name, const ELogLevel level, IFormatter *formatter)
    {
 // inicializa os parametros internos:
     this.m_name = name;
@@ -153,7 +153,7 @@ IFormatter* CAbstractAppender::getFormatter()
 //+------------------------------------------------------------------+
 //| Obtem o level para o appender.                                   |
 //+------------------------------------------------------------------+
-ENUM_LOG_LEVEL CAbstractAppender::getLevel()
+ELogLevel CAbstractAppender::getLevel()
    {
     return this.m_level;
    }

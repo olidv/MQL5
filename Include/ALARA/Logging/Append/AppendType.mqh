@@ -26,12 +26,12 @@
 
 
 //+------------------------------------------------------------------+
-//| Enumeration ENUM_APPEND_TYPE.                                    |
+//| Enumeration EAppendType.                                         |
 //|                                                                  |
 //| Usage: Identificacao dos tipos de appenders utilizados para      |
 //|        registrar as mensagens de logging.                        |
 //+------------------------------------------------------------------+
-enum ENUM_APPEND_TYPE
+enum EAppendType
    {
     APPEND_ALERT    =   1,   // Registra o logging em popup de alerta.
     APPEND_CHART    =   2,   // Registra o logging no grafico.
