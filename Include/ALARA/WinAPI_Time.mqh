@@ -114,16 +114,16 @@ datetime GetDatetime() {
 //+------------------------------------------------------------------+
 //| Converte apenas a parte de hora para milisegundos.               |
 //+------------------------------------------------------------------+
-long GetMillisecondsDate(SYSTEMTIME &systemTime) {
+ulong GetMillisecondsDate(SYSTEMTIME &systemTime) {
     MqlDateTime dt_struct = {0};
     dt_struct.year = (int) systemTime.wYear;
     dt_struct.mon = (int) systemTime.wMonth;
     dt_struct.day = (int) systemTime.wDay;
     
-    return ((long) StructToTime(dt_struct)) * 1000;  // deconsidera os milissegundos
+    return ((ulong) StructToTime(dt_struct)) * 1000;  // deconsidera os milissegundos
 }
 
-long GetMillisecondsDate() {
+ulong GetMillisecondsDate() {
     SYSTEMTIME systemTime;
     GetLocalTime(systemTime);
     
@@ -132,33 +132,33 @@ long GetMillisecondsDate() {
     dt_struct.mon = (int) systemTime.wMonth;
     dt_struct.day = (int) systemTime.wDay;
     
-    return ((long) StructToTime(dt_struct)) * 1000;  // deconsidera os milissegundos
+    return ((ulong) StructToTime(dt_struct)) * 1000;  // deconsidera os milissegundos
 }
 
 //+------------------------------------------------------------------+
 //| Converte apenas a parte de hora para milisegundos.               |
 //+------------------------------------------------------------------+
-int GetMillisecondsTime(SYSTEMTIME &systemTime) {
-    return (int) ((((((systemTime.wHour * 60)   // em minutos
-                 + systemTime.wMinute) * 60)    // em segundos
-                 + systemTime.wSecond) * 1000)  // em milissegundos
-                 + systemTime.wMilliseconds);
+uint GetMillisecondsTime(SYSTEMTIME &systemTime) {
+    return (uint) ((((((systemTime.wHour * 60)   // em minutos
+                  + systemTime.wMinute) * 60)    // em segundos
+                  + systemTime.wSecond) * 1000)  // em milissegundos
+                  + systemTime.wMilliseconds);
 }
 
-int GetMillisecondsTime() {
+uint GetMillisecondsTime() {
     SYSTEMTIME systemTime;
     GetLocalTime(systemTime);
     
-    return (int) ((((((systemTime.wHour * 60)   // em minutos
-                 + systemTime.wMinute) * 60)    // em segundos
-                 + systemTime.wSecond) * 1000)  // em milissegundos
-                 + systemTime.wMilliseconds);
+    return (uint) ((((((systemTime.wHour * 60)   // em minutos
+                  + systemTime.wMinute) * 60)    // em segundos
+                  + systemTime.wSecond) * 1000)  // em milissegundos
+                  + systemTime.wMilliseconds);
 }
 
 //+------------------------------------------------------------------+
 //| Converte um valor data-hora do sistema para milisegundos.        |
 //+------------------------------------------------------------------+
-long GetMillisecondsDatetime(SYSTEMTIME &systemTime) {
+ulong GetMillisecondsDatetime(SYSTEMTIME &systemTime) {
     MqlDateTime dt_struct = {0};
     dt_struct.year = (int) systemTime.wYear;
     dt_struct.mon = (int) systemTime.wMonth;
@@ -167,10 +167,10 @@ long GetMillisecondsDatetime(SYSTEMTIME &systemTime) {
     dt_struct.min = (int) systemTime.wMinute;
     dt_struct.sec = (int) systemTime.wSecond;
     
-    return (((long) StructToTime(dt_struct)) * 1000) + systemTime.wMilliseconds;
+    return (((ulong) StructToTime(dt_struct)) * 1000) + systemTime.wMilliseconds;
 }
 
-long GetMillisecondsDatetime() {
+ulong GetMillisecondsDatetime() {
     SYSTEMTIME systemTime;
     GetLocalTime(systemTime);
     
@@ -182,7 +182,7 @@ long GetMillisecondsDatetime() {
     dt_struct.min = (int) systemTime.wMinute;
     dt_struct.sec = (int) systemTime.wSecond;
 
-    return (((long) StructToTime(dt_struct)) * 1000) + systemTime.wMilliseconds;
+    return (((ulong) StructToTime(dt_struct)) * 1000) + systemTime.wMilliseconds;
 }
 
 //+------------------------------------------------------------------+
@@ -206,16 +206,16 @@ string SystemTimeToString() {
 //+------------------------------------------------------------------+
 //| Constantes exports                                               |
 //+------------------------------------------------------------------+
-const long HOJE_MILISSEGUNDOS = GetMillisecondsDate();
+const ulong HOJE_MILISSEGUNDOS = GetMillisecondsDate();
 
-const int DIA_INC = 24 * 60 * 60;  // unidade para adicionar 1 dia a uma data.
+const uint DIA_INC = 24 * 60 * 60;  // unidade para adicionar 1 dia a uma data.
 
-const int DIA_END = (24 * 60 * 60) - 1;  // unidade para adicionar 23:59:59 a uma data.
+const uint DIA_END = (24 * 60 * 60) - 1;  // unidade para adicionar 23:59:59 a uma data.
 
 //+------------------------------------------------------------------+
 //| Compoe uma data em milisegundos utilizando o horario fornecido.  |
 //+------------------------------------------------------------------+
-long addTimeToHoje(int localTime) {
+ulong addTimeToHoje(uint localTime) {
     return HOJE_MILISSEGUNDOS + localTime;
 }
 
