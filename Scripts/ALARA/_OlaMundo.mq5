@@ -149,28 +149,35 @@ void OnStart()
 //    double c = 3.4;
 //    Info varInfo(a, b, c);
 
-
+//
     SMagicCode mCode;
-    Print("SMagicCode.brokerLogin  = ", EnumToString(mCode.brokerLogin));
-    Print("SMagicCode.assetSimbol  = ", EnumToString(mCode.assetSimbol));
-    Print("SMagicCode.frameTiming  = ", EnumToString(mCode.frameTiming));
-    Print("SMagicCode.tradingType  = ", EnumToString(mCode.tradingType));
-    Print("SMagicCode.fillingType  = ", EnumToString(mCode.fillingType));
-    Print("SMagicCode.modoAssincro = ", mCode.modoAssincro);
-    Print("SMagicCode.idExpertAd   = ", mCode.idExpertAd);
-    Print("SMagicCode.seqOperacao  = ", mCode.seqOperacao);
+    Print(mCode.ToString());
+//    Print("SMagicCode.brokerLogin  = ", EnumToString(mCode.brokerLogin));
+//    Print("SMagicCode.assetSimbol  = ", EnumToString(mCode.assetSimbol));
+//    Print("SMagicCode.frameTiming  = ", EnumToString(mCode.frameTiming));
+//    Print("SMagicCode.tradingType  = ", EnumToString(mCode.tradingType));
+//    Print("SMagicCode.fillingType  = ", EnumToString(mCode.fillingType));
+//    Print("SMagicCode.modoAssincro = ", mCode.modoAssincro);
+//    Print("SMagicCode.idExpertAd   = ", mCode.idExpertAd);
+//    Print("SMagicCode.seqOperacao  = ", mCode.seqOperacao);
+//
+//    Print("\n Magic-Number = ", mCode.EncodeMagicNumber(),"/n");
+//    
+//    SMagicCode mCode2(mCode.EncodeMagicNumber());
+//    Print("SMagicCode.brokerLogin  = ", EnumToString(mCode2.brokerLogin));
+//    Print("SMagicCode.assetSimbol  = ", EnumToString(mCode2.assetSimbol));
+//    Print("SMagicCode.frameTiming  = ", EnumToString(mCode2.frameTiming));
+//    Print("SMagicCode.tradingType  = ", EnumToString(mCode2.tradingType));
+//    Print("SMagicCode.fillingType  = ", EnumToString(mCode2.fillingType));
+//    Print("SMagicCode.modoAssincro = ", mCode2.modoAssincro);
+//    Print("SMagicCode.idExpertAd   = ", mCode2.idExpertAd);
+//    Print("SMagicCode.seqOperacao  = ", mCode2.seqOperacao);
 
-    Print("\n Magic-Number = ", mCode.EncodeMagicNumber(),"/n");
-    
-    SMagicCode mCode2(mCode.EncodeMagicNumber());
-    Print("SMagicCode.brokerLogin  = ", EnumToString(mCode2.brokerLogin));
-    Print("SMagicCode.assetSimbol  = ", EnumToString(mCode2.assetSimbol));
-    Print("SMagicCode.frameTiming  = ", EnumToString(mCode2.frameTiming));
-    Print("SMagicCode.tradingType  = ", EnumToString(mCode2.tradingType));
-    Print("SMagicCode.fillingType  = ", EnumToString(mCode2.fillingType));
-    Print("SMagicCode.modoAssincro = ", mCode2.modoAssincro);
-    Print("SMagicCode.idExpertAd   = ", mCode2.idExpertAd);
-    Print("SMagicCode.seqOperacao  = ", mCode2.seqOperacao);
+
+
+
+
+
 
    }
 
