@@ -8,41 +8,42 @@
 #property version   "1.00"
 
 
+#include <ALARA\Trading\Magic\MagicCode.mqh>
 
-struct Info
-   {
-    double           a;
-    double           b;
-    double           c;
-
-                     Info() : a(1.1), b(2.2), c(3.3)                          { Print("Construtor default Info() executado");}
-                     Info(double pa, double pb, double pc) : a(pa), b(pb), c(pc)    {Print("Construtor parametrico Info(double pa, double pb, double pc) executado");}
-
-    Info              TestFactory(const double pa, const double pb, const double pc) const;
-    static Info       StaticFactory(const double pa, const double pb, const double pc);
-   };
-
-//+------------------------------------------------------------------+
-//|                                                                  |
-//+------------------------------------------------------------------+
-Info Info::TestFactory(const double pa, const double pb, const double pc) const
-   {
-    Print("Inicio Metodo TestFactory(pa, pb, pc)");
-    Info result(pa, pb, pc);
-    Print("Final Metodo TestFactory(pa, pb, pc)");
-    return result;
-   }
-
-//+------------------------------------------------------------------+
-//|                                                                  |
-//+------------------------------------------------------------------+
-static Info Info::StaticFactory(const double pa, const double pb, const double pc)
-   {
-    Print("Inicio Metodo StaticFactory(pa, pb, pc)");
-    Info result(pa, pb, pc);
-    Print("Final Metodo StaticFactory(pa, pb, pc)");
-    return result;
-   }
+//struct Info
+//   {
+//    double           a;
+//    double           b;
+//    double           c;
+//
+//                     Info() : a(1.1), b(2.2), c(3.3)                          { Print("Construtor default Info() executado");}
+//                     Info(double pa, double pb, double pc) : a(pa), b(pb), c(pc)    {Print("Construtor parametrico Info(double pa, double pb, double pc) executado");}
+//
+//    Info              TestFactory(const double pa, const double pb, const double pc) const;
+//    static Info       StaticFactory(const double pa, const double pb, const double pc);
+//   };
+//
+////+------------------------------------------------------------------+
+////|                                                                  |
+////+------------------------------------------------------------------+
+//Info Info::TestFactory(const double pa, const double pb, const double pc) const
+//   {
+//    Print("Inicio Metodo TestFactory(pa, pb, pc)");
+//    Info result(pa, pb, pc);
+//    Print("Final Metodo TestFactory(pa, pb, pc)");
+//    return result;
+//   }
+//
+////+------------------------------------------------------------------+
+////|                                                                  |
+////+------------------------------------------------------------------+
+//static Info Info::StaticFactory(const double pa, const double pb, const double pc)
+//   {
+//    Print("Inicio Metodo StaticFactory(pa, pb, pc)");
+//    Info result(pa, pb, pc);
+//    Print("Final Metodo StaticFactory(pa, pb, pc)");
+//    return result;
+//   }
 
 //+------------------------------------------------------------------+
 //| Script program start function                                    |
@@ -130,24 +131,46 @@ void OnStart()
 //    Print("234567 % 1000 = ", 234567 % 1000);~
 
 
-    Print("Vai declarar estruturas");
-    Info info1, info2, info3;
-    Print("estruturas inicializadas");
+//    Print("Vai declarar estruturas");
+//    Info info1, info2, info3;
+//    Print("estruturas inicializadas");
+//
+//    info2 = info1.TestFactory(4.4, 5.5, 6.6);
+//    Print("estrutura info2 inicializada");
+//    info3 = Info::StaticFactory(7.7, 8.8, 9.9);
+//    Print("estrutura info3 inicializada");
+//
+//    Print(info1.a); // Prints 1.1 OK!
+//    Print(info2.a); // Prints 4.4 OK!
+//    Print(info3.a); // Prints 1.1 ERROR! should be 7.7
+//
+//    double a = 3.4;
+//    double b = 3.4;
+//    double c = 3.4;
+//    Info varInfo(a, b, c);
 
-    info2 = info1.TestFactory(4.4, 5.5, 6.6);
-    Print("estrutura info2 inicializada");
-    info3 = Info::StaticFactory(7.7, 8.8, 9.9);
-    Print("estrutura info3 inicializada");
 
-    Print(info1.a); // Prints 1.1 OK!
-    Print(info2.a); // Prints 4.4 OK!
-    Print(info3.a); // Prints 1.1 ERROR! should be 7.7
+    SMagicCode mCode;
+    Print("SMagicCode.brokerLogin  = ", EnumToString(mCode.brokerLogin));
+    Print("SMagicCode.assetSimbol  = ", EnumToString(mCode.assetSimbol));
+    Print("SMagicCode.frameTiming  = ", EnumToString(mCode.frameTiming));
+    Print("SMagicCode.tradingType  = ", EnumToString(mCode.tradingType));
+    Print("SMagicCode.fillingType  = ", EnumToString(mCode.fillingType));
+    Print("SMagicCode.modoAssincro = ", mCode.modoAssincro);
+    Print("SMagicCode.idExpertAd   = ", mCode.idExpertAd);
+    Print("SMagicCode.seqOperacao  = ", mCode.seqOperacao);
+
+    Print("\n Magic-Number = ", mCode.EncodeMagicNumber(),"/n");
     
-    double a = 3.4;
-    double b = 3.4;
-    double c = 3.4;
-    Info varInfo(a, b, c);
-
+    SMagicCode mCode2(mCode.EncodeMagicNumber());
+    Print("SMagicCode.brokerLogin  = ", EnumToString(mCode2.brokerLogin));
+    Print("SMagicCode.assetSimbol  = ", EnumToString(mCode2.assetSimbol));
+    Print("SMagicCode.frameTiming  = ", EnumToString(mCode2.frameTiming));
+    Print("SMagicCode.tradingType  = ", EnumToString(mCode2.tradingType));
+    Print("SMagicCode.fillingType  = ", EnumToString(mCode2.fillingType));
+    Print("SMagicCode.modoAssincro = ", mCode2.modoAssincro);
+    Print("SMagicCode.idExpertAd   = ", mCode2.idExpertAd);
+    Print("SMagicCode.seqOperacao  = ", mCode2.seqOperacao);
 
    }
 
