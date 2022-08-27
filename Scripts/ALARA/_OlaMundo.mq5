@@ -150,8 +150,8 @@ void OnStart()
 //    Info varInfo(a, b, c);
 
 //
-    SMagicCode mCode;
-    Print(mCode.ToString());
+    //SMagicCode mCode;
+    //Print(mCode.ToString());
 //    Print("SMagicCode.brokerLogin  = ", EnumToString(mCode.brokerLogin));
 //    Print("SMagicCode.assetSimbol  = ", EnumToString(mCode.assetSimbol));
 //    Print("SMagicCode.frameTiming  = ", EnumToString(mCode.frameTiming));
@@ -175,6 +175,8 @@ void OnStart()
 
 
 
+  ENUM_SYMBOL_TRADE_EXECUTION executionMode=(ENUM_SYMBOL_TRADE_EXECUTION)SymbolInfoInteger(_Symbol,SYMBOL_TRADE_EXEMODE);
+  printf("Trade execution mode for %s is %s",_Symbol,EnumToString(executionMode));
 
 
 
