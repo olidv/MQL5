@@ -42,8 +42,20 @@
 /mql5.content
 /mql5.index
 
-# Descarta executaveis / compilados
+# Build results
 **/*.ex5
 
-# Descarta cursos e scripts de aprendizados e tutoriais
+# Visual Studio Code
+.vscode/
+.history/
+prettierignore.txt
+*.code-workspace
+
+# ---------------------------------------------------------
+
+#####
+# End of core ignore list, 
+# below put you custom 'per project' settings,
+# patterns or path.
+#####
 /Cursos
