@@ -21,6 +21,14 @@
 /Include/Tools
 /Include/Trade
 /Include/WinAPI
+/Include/errordescription.mqh
+/Include/internetlib.mqh
+/Include/MovingAverages.mqh
+/Include/Object.mqh
+/Include/StdLibErr.mqh
+/Include/SymbolTradeMadeSimple.mqh
+/Include/TradeAlt.mqh
+/Include/VirtualKeys.mqh
 /Indicators/Examples
 /Logs
 /Profiles/Charts
